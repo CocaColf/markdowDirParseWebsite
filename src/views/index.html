@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>HappyReading</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./libs/default/style.min.css" />
+    <link rel="stylesheet" href="./monokai-sublime.css">
+    <link href="https://cdn.bootcss.com/github-markdown-css/2.8.0/github-markdown.min.css" rel="stylesheet">
+    <!-- <link href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/github-gist.min.css" rel="stylesheet"> -->
+    <style>
+        html, body {
+            overflow: hidden;
+        }
+        .parent {
+            display: flex;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .left {
+            margin-right: 20px;
+            border-right: 4px solid #ccc;
+            height: 100%;
+        }
+
+        .right {
+            flex: 1;
+        }
+
+        #content {
+            width: 90%;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="parent">
+        <div class="left">
+            <div id="tree"></div>
+        </div>
+        <div class="right">
+           <div id="content"></div>
+        </div>
+    </div>
+
+
+</body>
+<script src="./libs/jquery.js"></script>
+<script src="./libs/jstree.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    function load() {
+        // 初始化树形数据
+        axios.get('http://localhost:3000/getTree')
+            .then(function (response) {
+                loadTreeData(response.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    function loadTreeData(treeData) {
+        $('#tree')
+            .on("changed.jstree", function (e, data) {
+                if (data.selected.length) {
+                    console.log(data.node.original.type)
+                    if(data.node.original.type === 'file') {
+                        requestFileData(data.node.original.path);
+                    }
+                }
+            })
+            .jstree({
+                'core': {
+                    'multiple': false,
+                    'data': treeData
+                }
+            });
+    }
+
+    // 请求文件的内容
+    function requestFileData(path) {
+        axios({
+            method: 'post',
+            url: 'http://localhost:3000/getFileData',
+            data: {
+                path: path
+            },
+            headers: {'Content-Type': 'application/json'},
+        })
+        .then(function (response) {
+            var content = response.data;
+            document.getElementById('content').innerHTML = content;
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }
+
+    $(function () {
+        load();
+    });
+</script>
+
+</html>
