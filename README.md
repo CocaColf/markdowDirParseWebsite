@@ -10,7 +10,7 @@
 
 **用法**
 
-+ 初次使用需要：`npm install -g @CocaColf/markdownParseWebSite` / `yarn global add @CocaColf/markdownParseWebSite`
++ 初次使用需要：`npm install -g markdown-parse-website` / `yarn global add markdown-parse-website`
 
 + 在目的文件夹下，执行 `fileShow parse`
 
