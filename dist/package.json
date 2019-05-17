@@ -1,6 +1,6 @@
 {
-  "name": "@CocaColf/markdownParseWebSite",
-  "version": "1.0.0",
+  "name": "markdown-parse-website",
+  "version": "1.0.1",
   "description": "A command line tool that turns a folder with markdown into a website",
   "main": "index.js",
   "repository": "https://github.com/CocaColf/markdowDirParseWebsite",
