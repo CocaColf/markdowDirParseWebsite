@@ -1,0 +1,26 @@
+{
+  "name": "@CocaColf/markdownParseWebSite",
+  "version": "1.0.0",
+  "description": "A command line tool that turns a folder with markdown into a website",
+  "main": "index.js",
+  "repository": "https://github.com/CocaColf/markdowDirParseWebsite",
+  "author": "https://github.com/CocaColf",
+  "scripts": {
+    "show": "fileShow"
+  },
+  "bin": {
+    "fileShow": "./index.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^2.20.0",
+    "highlight.js": "^9.15.6",
+    "koa": "^2.7.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "koa-views": "^6.2.0",
+    "koa2-cors": "^2.0.6",
+    "marked": "^0.6.2"
+  }
+}
